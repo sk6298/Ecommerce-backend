@@ -32,6 +32,10 @@ app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/checkout", stripeRoute);
 
+app.get("/test", (req,res) => {
+  res.json("Working fine");
+});
+
 app.listen(process.env.PORT || 5000, () => {
-  console.log("Server is running on port no.: ", process.env.PORT);
+  console.log(`http://localhost:${process.env.PORT || 5000}/`);
 });

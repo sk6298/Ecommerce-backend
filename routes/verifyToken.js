@@ -22,22 +22,26 @@ const verifyTokenAndAuthorization = (req, resp, next) => {
     // if id is same or if admin
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
+    } else {
+      resp.status(403).json({
+        error_message: "You are not allowed to perform this operation !",
+      });
     }
-    resp.status(403).json({
-      error_message: "You are not allowed to perform this operation !",
-    });
   });
 };
 
 const verifyTokenAndAdmin = (req, resp, next) => {
   verifyToken(req, resp, () => {
     // if id is same or if admin
+    console.log("user info", req);
+
     if (req.user.isAdmin) {
       next();
+    } else {
+      resp.status(403).json({
+        error_message: "You are not allowed to perform this operation !",
+      });
     }
-    resp.status(403).json({
-      error_message: "You are not allowed to perform this operation !",
-    });
   });
 };
 

@@ -14,7 +14,7 @@ router.post("/", verifyTokenAndAdmin, async (req, resp) => {
     resp.status(201).json(savedProduct);
   } catch (error) {
     resp.status(500).json({
-      error_message: error,
+      error_message: error
     });
   }
 });
@@ -32,7 +32,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, resp) => {
     resp.status(200).json(updatedProduct);
   } catch (error) {
     resp.status(500).json({
-      error_message: error,
+      error_message: error
     });
   }
 });
@@ -46,7 +46,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
     });
   } catch (error) {
     resp.status(500).json({
-      error_message: error,
+      error_message: error
     });
   }
 });
@@ -54,11 +54,11 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
 // GET
 router.get("/find/:id", verifyTokenAndAuthorization, async (req, resp) => {
   try {
-    const product = await Product.findById(req.body.id);
+    const product = await Product.findById(req.params.id);
     resp.status(200).json(product);
   } catch (error) {
     resp.status(500).json({
-      error_message: error,
+      error_message: error
     });
   }
 });
@@ -85,7 +85,7 @@ router.get("/", verifyTokenAndAuthorization, async (req, resp) => {
     resp.status(200).json(products);
   } catch (error) {
     resp.status(500).json({
-      error_message: error,
+      error_message: error
     });
   }
 });
