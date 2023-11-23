@@ -22,6 +22,12 @@ router.post("/", verifyToken, async (req, resp) => {
 
 // UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
+
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -40,6 +46,12 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, resp) => {
 
 // DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
+
   try {
     await Cart.findByIdAndDelete(req.params.id);
     resp.status(200).json({
@@ -54,6 +66,12 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, resp) => {
 
 // GET CART with userid
 router.get("/find/:userId", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.userId) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
+
   try {
     const cart = await Cart.findOne({
       userId: req.params.userId,

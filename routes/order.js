@@ -22,6 +22,11 @@ router.post("/", verifyToken, async (req, resp) => {
 
 // UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -40,6 +45,11 @@ router.put("/:id", verifyTokenAndAdmin, async (req, resp) => {
 
 // DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     await Order.findByIdAndDelete(req.params.id);
     resp.status(200).json({
@@ -54,6 +64,11 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
 
 // GET Order with userid
 router.get("/find/:userId", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.userId) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     const orders = await Order.find({
       userId: req.params.userId,

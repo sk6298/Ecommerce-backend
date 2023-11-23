@@ -8,6 +8,12 @@ const User = require("../models/User");
 
 // UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
+
   let { password } = req.body;
 
   if (password) {
@@ -36,6 +42,11 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, resp) => {
 
 // DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     await User.findByIdAndDelete(req.params.id);
     resp.status(200).json({
@@ -50,6 +61,12 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
 
 // GET
 router.get("/find/:id", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
+  
   try {
     const user = await User.findById(req.body.id);
     const { password, ...userInfo } = user;

@@ -21,6 +21,11 @@ router.post("/", verifyTokenAndAdmin, async (req, resp) => {
 
 // UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -39,6 +44,11 @@ router.put("/:id", verifyTokenAndAdmin, async (req, resp) => {
 
 // DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     await Product.findByIdAndDelete(req.params.id);
     resp.status(200).json({
@@ -53,6 +63,11 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, resp) => {
 
 // GET
 router.get("/find/:id", verifyTokenAndAuthorization, async (req, resp) => {
+  if (!req.params.id) {
+    resp.status(404).json({
+      error_message: "Not found"
+    });
+  }
   try {
     const product = await Product.findById(req.params.id);
     resp.status(200).json(product);
